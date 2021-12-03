@@ -1,0 +1,49 @@
+{
+  "expo": {
+    "name": "valdepenas",
+    "slug": "valdepenas",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.adonis.cuba.valdepenas",
+      "buildNumber": "1"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.adonis.cuba.valdepenas",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "La aplaicación requiere acceso a sus fotos para permitirle compartir la imagen de la incidencia."
+        }
+      ]
+    ],
+    "extra": {
+      "API_URL": "https://ferrovial.creacionwebprofesional.com"
+    },
+    "description": "",
+    "githubUrl": "https://github.com/Soporte-Tecnico-Tic/valdepenas"
+  }
+}

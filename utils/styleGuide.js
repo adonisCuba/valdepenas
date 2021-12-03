@@ -1,0 +1,68 @@
+export const colors = {
+  PRIMARIO: "#501731",
+  GRIS_OSCURO: "#3e3e3e",
+  GRIS_MEDIO: "#979797",
+  FONDO: "#f3f3f3",
+};
+export const spacing = {
+  spacingXxs: 4,
+  spacingXs: 8,
+  spacingS: 12,
+  spacingM: 14,
+  spacingL: 16,
+  spacingXl: 24,
+};
+export const textStyles = {
+  TXT_XL: {
+    fontFamily: "Nunito_400Regular",
+    fontSize: 24,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    lineHeight: 28,
+    letterSpacing: 0,
+    textAlign: "center",
+    color: colors.PRIMARIO,
+  },
+  TXT_L: {
+    fontFamily: "Nunito_400Regular",
+    fontSize: 20,
+    fontWeight: "bold",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: colors.PRIMARIO,
+  },
+  TXT_M: {
+    fontFamily: "Nunito_400Regular",
+    fontSize: 18,
+    fontWeight: "600",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: colors.PRIMARIO,
+  },
+  TXT_S: {
+    fontFamily: "Nunito_400Regular",
+    fontSize: 16,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    textAlign: "center",
+    color: colors.PRIMARIO,
+  },
+  TXT_XS: {
+    fontFamily: "Nunito_400Regular",
+    fontSize: 14,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0.16,
+    color: colors.GRIS_OSCURO,
+  },
+  TXT_XXS: {
+    fontFamily: "Nunito_400Regular",
+    fontSize: 12,
+    fontWeight: "normal",
+    fontStyle: "normal",
+    letterSpacing: 0,
+    color: colors.GRIS_MEDIO,
+  },
+};
