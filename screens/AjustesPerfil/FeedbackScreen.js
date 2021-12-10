@@ -54,8 +54,8 @@ export const FeedBackScreen = () => {
         <Center
           flex={1}
           style={{
-            marginLeft: spacing.spacingS,
-            marginRight: spacing.spacingS,
+            marginLeft: 32,
+            marginRight: 32,
           }}
         >
           <InputProfile

@@ -14,6 +14,8 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, useWindowDimensions } from "react-native";
 import RenderHTML from "react-native-render-html";
 import { colors, spacing, textStyles } from "../../utils/styleGuide";
+import CalendarioIcon from "../../assets/icons/iconosCalendario.svg";
+import UbicacionIcon from "../../assets/icons/iconosUbicacion.svg";
 const DetailsIncidenciaScreen = (props) => {
   const { itemId } = props.route.params;
   const { getIncidencia } = props.rootStore.incidenciaStore;
@@ -27,8 +29,10 @@ const DetailsIncidenciaScreen = (props) => {
       {incidencia ? (
         <ScrollView>
           <VStack
-            pl={spacing.spacingXxs}
-            pr={spacing.spacingXxs}
+            style={{
+              paddingLeft: spacing.spacingXs,
+              paddingRight: spacing.spacingXs,
+            }}
             bg={colors.FONDO}
           >
             <Box>
@@ -38,24 +42,25 @@ const DetailsIncidenciaScreen = (props) => {
                 height={250}
                 resizeMode="cover"
                 borderRadius={10}
-                mt={spacing.spacingXxs}
+                style={{ marginTop: spacing.spacingXs }}
               />
               <HStack
                 alignItems="center"
                 position="absolute"
-                mt={spacing.spacingXs}
                 bg={"white"}
-                ml={4}
                 p={1}
                 pl={2}
                 pr={2}
                 borderRadius={20}
+                style={{
+                  marginTop: spacing.spacingS,
+                  marginLeft: spacing.spacingXxs,
+                }}
               >
-                <Image
-                  source={require("../../assets/icons/iconosCalendario.png")}
-                  alt="Calendar icon"
-                />
-                <Text>{incidencia.created}</Text>
+                <CalendarioIcon />
+                <Text style={{ marginLeft: spacing.spacingXxs }}>
+                  {incidencia.created}
+                </Text>
               </HStack>
             </Box>
             {incidencia.estado ? (
@@ -64,11 +69,9 @@ const DetailsIncidenciaScreen = (props) => {
                 style={styles.borderDivider}
                 alignItems="center"
               >
-                <Image
-                  source={require("../../assets/icons/iconosUbicacion.png")}
-                  alt="Ubicación icon"
-                  mr={2}
-                />
+                <Box mr={2}>
+                  <UbicacionIcon />
+                </Box>
                 <Text style={textStyles.TXT_XXS}>{incidencia.estado}</Text>
               </HStack>
             ) : null}
@@ -81,17 +84,14 @@ const DetailsIncidenciaScreen = (props) => {
               style={styles.borderDivider}
               alignItems="center"
             >
-              <Image
-                source={require("../../assets/icons/iconosUbicacion.png")}
-                alt="Ubicación icon"
-                mr={2}
-              />
+              <Box mr={2}>
+                <UbicacionIcon />
+              </Box>
               <Text style={textStyles.TXT_XXS}>{incidencia.direccion}</Text>
             </HStack>
             <RenderHTML
               source={{ html: incidencia.description }}
               baseStyle={{
-                padding: spacing.spacingXs,
                 fontFamily: "Nunito_400Regular",
                 fontSize: 14,
                 fontWeight: "normal",
@@ -113,6 +113,8 @@ const DetailsIncidenciaScreen = (props) => {
 };
 const styles = StyleSheet.create({
   borderDivider: {
+    paddingTop: spacing.spacingXs,
+    paddingBottom: spacing.spacingXxs,
     borderBottomWidth: 1,
     borderBottomColor: "rgba(0,0,0,0.2)",
   },

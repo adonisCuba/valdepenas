@@ -2,6 +2,8 @@ import { Text, VStack, Image, Pressable, HStack, Box } from "native-base";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { spacing, textStyles } from "../utils/styleGuide";
+import CalendarioIcon from "../assets/icons/iconosCalendario.svg";
+import UbicacionIcon from "../assets/icons/iconosUbicacion.svg";
 export const IncidenciaItem = (props) => {
   return (
     <Pressable
@@ -12,7 +14,12 @@ export const IncidenciaItem = (props) => {
       }}
       onPress={props.onPress}
     >
-      <VStack pl={spacing.spacingXxs} pr={spacing.spacingXxs}>
+      <VStack
+        style={{
+          paddingLeft: spacing.spacingXs,
+          paddingRight: spacing.spacingXs,
+        }}
+      >
         <Box>
           <Image
             source={
@@ -24,37 +31,33 @@ export const IncidenciaItem = (props) => {
             height={250}
             resizeMode="cover"
             borderRadius={10}
-            mt={spacing.spacingXxs}
+            style={{ marginTop: spacing.spacingXs }}
           />
           <HStack
             alignItems="center"
             position="absolute"
             mt={spacing.spacingXs}
             bg={"white"}
-            ml={4}
             p={1}
             pl={2}
             pr={2}
             borderRadius={20}
+            style={{
+              marginTop: spacing.spacingS,
+              marginLeft: spacing.spacingXxs,
+            }}
           >
-            <Image
-              source={require("../assets/icons/iconosCalendario.png")}
-              alt="Calendar icon"
-            />
-            <Text>{props.created}</Text>
+            <CalendarioIcon />
+            <Text style={{ marginLeft: spacing.spacingXxs }}>
+              {props.created}
+            </Text>
           </HStack>
         </Box>
         {props.estado ? (
-          <HStack
-            pt={spacing.spacingXxs}
-            style={styles.borderDivider}
-            alignItems="center"
-          >
-            <Image
-              source={require("../assets/icons/iconosUbicacion.png")}
-              alt="Ubicación icon"
-              mr={2}
-            />
+          <HStack style={styles.borderDivider} alignItems="center">
+            <Box mr={2}>
+              <UbicacionIcon />
+            </Box>
             <Text style={textStyles.TXT_XXS}>{props.estado}</Text>
           </HStack>
         ) : null}
@@ -63,15 +66,15 @@ export const IncidenciaItem = (props) => {
           {props.titulo}
         </Text>
         <HStack
-          pt={spacing.spacingXxs}
-          pb={spacing.spacingXxs}
+          style={{
+            paddingTop: spacing.spacingXs,
+            paddingBottom: spacing.spacingXs,
+          }}
           alignItems="center"
         >
-          <Image
-            source={require("../assets/icons/iconosUbicacion.png")}
-            alt="Ubicación icon"
-            mr={2}
-          />
+          <Box mr={2}>
+            <UbicacionIcon />
+          </Box>
           <Text style={textStyles.TXT_XXS}>{props.direccion}</Text>
         </HStack>
       </VStack>
@@ -81,6 +84,8 @@ export const IncidenciaItem = (props) => {
 
 const styles = StyleSheet.create({
   borderDivider: {
+    paddingTop: spacing.spacingXs,
+    paddingBottom: spacing.spacingXxs,
     borderBottomWidth: 1,
     borderBottomColor: "rgba(0,0,0,0.2)",
   },

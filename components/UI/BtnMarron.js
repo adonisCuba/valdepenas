@@ -26,7 +26,7 @@ const style = StyleSheet.create({
     },
     shadowRadius: 10,
     shadowOpacity: 1,
-    marginBottom: spacing.spacingL,
+    marginBottom: spacing.spacingM,
     marginTop: spacing.spacingM,
     padding: spacing.spacingM,
   },

@@ -1,5 +1,7 @@
 import {
+  AlertDialog,
   Box,
+  Button,
   HStack,
   Input,
   NativeBaseProvider,
@@ -20,6 +22,8 @@ import locationService from "../../services/location.service";
 import * as FileSystem from "expo-file-system";
 import incidenciaService from "../../services/incidencia.service";
 import { inject, observer } from "mobx-react";
+import CamaraIcon from "../../assets/icons/iconosCamara.svg";
+import UbicacionIcon from "../../assets/icons/iconoUbicaciN.svg";
 const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
   const { getIncidencias } = rootStore.incidenciaStore;
   const [imagenUri, setImagenUri] = useState(null);
@@ -30,6 +34,10 @@ const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
   const [geolocalizacion, setGeolocalizacion] = useState(null);
   const [loading, setLoading] = useState(false);
   const [btnLoading, setBtnLoading] = useState(false);
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const onClose = () => setIsOpen(false);
+  const cancelRef = React.useRef(null);
   useEffect(() => {
     (async () => {
       if (Platform.OS !== "web") {
@@ -53,7 +61,44 @@ const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
   }, [route.params?.geo]);
 
   const pickImage = async () => {
+    setIsOpen(!isOpen);
+    // let result = await ImagePicker.launchImageLibraryAsync({
+    //   mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    //   allowsEditing: true,
+    //   aspect: [16, 9],
+    //   quality: 0.5,
+    // });
+    // if (!result.cancelled) {
+    //   setImagenUri(result.uri);
+    // }
+  };
+  const onGaleria = async () => {
+    setIsOpen(false);
+    if (Platform.OS !== "web") {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted")
+        alert("Disculpe, pero debe dar permiso a la cámara para que funcione");
+    }
     let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [16, 9],
+      quality: 0.5,
+    });
+    if (!result.cancelled) {
+      setImagenUri(result.uri);
+    }
+  };
+
+  const onCamara = async () => {
+    setIsOpen(false);
+    if (Platform.OS !== "web") {
+      const { status } = await ImagePicker.requestCameraPermissionsAsync();
+      if (status !== "granted")
+        alert("Disculpe, pero debe dar permiso a la cámara para que funcione");
+    }
+    let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [16, 9],
@@ -144,7 +189,7 @@ const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
             <Text style={styles.label}>Sube una foto</Text>
             {imagenUri && (
               <Pressable
-                onPress={pickImage}
+                onPress={() => setIsOpen(!isOpen)}
                 style={{ marginBottom: spacing.spacingS }}
               >
                 <Image
@@ -156,12 +201,9 @@ const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
               </Pressable>
             )}
             {imagenUri == null && (
-              <Pressable onPress={pickImage}>
+              <Pressable onPress={() => setIsOpen(!isOpen)}>
                 <Box h={200} bg="white" style={styles.boxFoto}>
-                  <Image
-                    source={require("../../assets/icons/iconosCamara.png")}
-                    alt="Ico foto"
-                  />
+                  <CamaraIcon />
                 </Box>
               </Pressable>
             )}
@@ -182,11 +224,9 @@ const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
                   {loading ? (
                     <Spinner size="sm" color={colors.PRIMARIO} />
                   ) : (
-                    <Image
-                      style={{ marginRight: spacing.spacingXxs }}
-                      source={require("../../assets/icons/iconoUbicaciN.png")}
-                      alt="Icon localizacion"
-                    />
+                    <Box style={{ marginRight: spacing.spacingXxs }}>
+                      <UbicacionIcon />
+                    </Box>
                   )}
                 </Pressable>
               }
@@ -213,6 +253,34 @@ const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
             onPress={save}
           />
         </HStack>
+
+        <AlertDialog
+          leastDestructiveRef={cancelRef}
+          isOpen={isOpen}
+          onClose={onClose}
+        >
+          <AlertDialog.Content>
+            <AlertDialog.CloseButton />
+            <AlertDialog.Header>Seleccionar imagen</AlertDialog.Header>
+            <AlertDialog.Body>
+              Seleccione la fuente de donde desea obtener la imagen.
+            </AlertDialog.Body>
+            <AlertDialog.Footer>
+              <Button.Group space={2}>
+                <Button
+                  colorScheme="coolGray"
+                  onPress={onGaleria}
+                  ref={cancelRef}
+                >
+                  Galería
+                </Button>
+                <Button colorScheme="coolGray" onPress={onCamara}>
+                  Cámara
+                </Button>
+              </Button.Group>
+            </AlertDialog.Footer>
+          </AlertDialog.Content>
+        </AlertDialog>
       </VStack>
     </NativeBaseProvider>
   );

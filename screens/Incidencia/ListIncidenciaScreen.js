@@ -3,7 +3,8 @@ import { NativeBaseProvider, HStack, FlatList } from "native-base";
 import React, { useEffect } from "react";
 import { IncidenciaItem } from "../../components/IncidenciaItem";
 import { BtnMarron } from "../../components/UI/BtnMarron";
-import { colors } from "../../utils/styleGuide";
+import { colors, spacing } from "../../utils/styleGuide";
+import { LinearGradient } from "expo-linear-gradient";
 const config = {
   dependencies: {
     "linear-gradient": require("expo-linear-gradient").LinearGradient,
@@ -16,9 +17,9 @@ const ListIncidenciaScreen = (props) => {
   }, []);
 
   return (
-    <NativeBaseProvider config={config}>
+    <NativeBaseProvider>
       <FlatList
-        style={{ backgroundColor: colors.FONDO }}
+        style={{ backgroundColor: colors.FONDO, marginTop: spacing.spacingS }}
         data={incidencias}
         renderItem={({ item }) => (
           <IncidenciaItem
@@ -36,21 +37,21 @@ const ListIncidenciaScreen = (props) => {
         )}
         keyExtractor={(item) => item.id}
       />
-      <HStack
-        justifyContent="center"
-        bg={{
-          linearGradient: {
-            colors: [colors.FONDO, "#FFFFFF"],
-            start: [0, 0],
-            end: [0, 1],
-          },
+      <LinearGradient
+        colors={["rgba(151,145,151,0.5)", "white"]}
+        style={{
+          position: "absolute",
+          width: "100%",
+          bottom: 0,
         }}
       >
-        <BtnMarron
-          text="Crear incidencia"
-          onPress={() => props.navigation.navigate("CreateIncidencia")}
-        />
-      </HStack>
+        <HStack justifyContent="center">
+          <BtnMarron
+            text="Crear incidencia"
+            onPress={() => props.navigation.navigate("CreateIncidencia")}
+          />
+        </HStack>
+      </LinearGradient>
     </NativeBaseProvider>
   );
 };

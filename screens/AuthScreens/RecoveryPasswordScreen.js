@@ -15,6 +15,7 @@ import { InputLogin } from "../../components/UI/InputLogin";
 import { BtnLogin } from "../../components/UI/BtnLogin";
 import { useState } from "react";
 import authService from "../../services/auth.service";
+import Logo from "../../assets/logo.svg";
 export const RecoveryPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [showLoading, setShowLoading] = useState(false);
@@ -65,15 +66,8 @@ export const RecoveryPasswordScreen = ({ navigation }) => {
           </Pressable>
         </HStack>
         <VStack flex={0.8} pl={spacing.spacingL} pr={spacing.spacingL}>
-          <HStack justifyContent="center">
-            <Image
-              source={require("../../assets/logo.png")}
-              w="228"
-              h="104"
-              resizeMode="cover"
-              alt="Logo del ayuntamiento"
-              mt={spacing.spacingL}
-            />
+          <HStack justifyContent="center" mt={spacing.spacingL}>
+            <Logo />
           </HStack>
           <Center flex={1}>
             <InputLogin

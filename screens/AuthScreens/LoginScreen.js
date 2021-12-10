@@ -1,7 +1,6 @@
 import {
   Center,
   HStack,
-  Image,
   NativeBaseProvider,
   Pressable,
   Text,
@@ -17,17 +16,15 @@ import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProv
 import { spacing, textStyles } from "../../utils/styleGuide";
 import authService from "../../services/auth.service";
 import { TokenService } from "../../services/token.service";
-
+import Logo from "../../assets/logo.svg";
 export const LoginScreen = ({ navigation }) => {
   const { setUser } = useContext(AuthenticatedUserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showLoading, setShowLoading] = useState(false);
 
   const onLogin = async () => {
     try {
       if (email != "" && password != "") {
-        setShowLoading(true);
         const result = await authService.login(email, password);
         if (result.status == 403) {
           Toast.show({
@@ -35,12 +32,10 @@ export const LoginScreen = ({ navigation }) => {
             status: "error",
             description: result.message,
           });
-          setShowLoading(false);
         } else {
           await TokenService.setAccessToken(result.access_token);
           await TokenService.setCsrfToken(result.csrf_token);
           await TokenService.setLogoutToken(result.logout_token);
-          setShowLoading(false);
           setUser(result.current_user);
         }
       } else
@@ -66,15 +61,8 @@ export const LoginScreen = ({ navigation }) => {
         style={{ flex: 1 }}
       >
         <VStack flex={1} pl={spacing.spacingL} pr={spacing.spacingL}>
-          <HStack justifyContent="center">
-            <Image
-              source={require("../../assets/logo.png")}
-              w="228"
-              h="104"
-              resizeMode="cover"
-              alt="Logo del ayuntamiento"
-              mt={spacing.spacingXl}
-            />
+          <HStack justifyContent="center" mt={spacing.spacingXl}>
+            <Logo />
           </HStack>
           <Center flex={1}>
             <InputLogin
@@ -88,11 +76,7 @@ export const LoginScreen = ({ navigation }) => {
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
-            <BtnLogin
-              onPress={onLogin}
-              text="Acceder"
-              showLoading={showLoading}
-            />
+            <BtnLogin onPress={onLogin} text="Acceder" />
             <Pressable
               onPress={() => {
                 navigation.navigate("RecoveryPassword");
@@ -102,9 +86,7 @@ export const LoginScreen = ({ navigation }) => {
             </Pressable>
           </Center>
           <VStack>
-            <Text pb={spacing.spacingXxs} style={styles.textSign}>
-              ¿Aún no tienes cuenta?
-            </Text>
+            <Text style={styles.textSign}>¿Aún no tienes cuenta?</Text>
             <HStack justifyContent="center">
               <BtnWhite
                 onPress={() => {
@@ -130,5 +112,6 @@ const styles = StyleSheet.create({
     ...textStyles.TXT_XS,
     color: "#FFFFFF",
     textAlign: "center",
+    paddingBottom: spacing.spacingXxs,
   },
 });

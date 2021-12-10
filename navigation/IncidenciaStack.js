@@ -16,6 +16,8 @@ import { MenuLeftPrimaryHeader } from "../components/Header/MenuLeftPrimaryHeade
 import { PrimaryBackHeader } from "../components/Header/PrimaryBackHeader";
 import { colors } from "../utils/styleGuide";
 import { LocateScreen } from "../screens/Incidencia/LocateScreen";
+import { PoliticaScreen } from "../screens/AjustesPerfil/PoliticaScreen";
+import { AvisosScreen } from "../screens/AjustesPerfil/AvisosScreen";
 
 const Stack = createStackNavigator();
 
@@ -23,9 +25,6 @@ export default function IncidenciaStack() {
   return (
     <Stack.Navigator>
       <Stack.Group
-        // screenOptions={{
-        //   headerTitle: ({ navigation }) => <IncidenciasHeader {...props} />,
-        // }}
         screenOptions={({ navigation, route }) => ({
           headerLeft: (props) => (
             <MenuLeftHeader
@@ -40,7 +39,7 @@ export default function IncidenciaStack() {
       >
         <Stack.Screen name="ListIncidencias" component={ListIncidenciaScreen} />
       </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
+      <Stack.Group>
         <Stack.Screen
           name="CreateIncidencia"
           component={CreateIncidenciaScreen}
@@ -130,6 +129,40 @@ export default function IncidenciaStack() {
             ),
             headerTitleAlign: "center",
             headerTitle: (props) => <PrimaryBackHeader text="Faqs" />,
+            headerStyle: {
+              backgroundColor: colors.PRIMARIO,
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+          })}
+        />
+        <Stack.Screen
+          name="Politica"
+          component={PoliticaScreen}
+          options={({ navigation, route }) => ({
+            headerLeft: (props) => (
+              <MenuLeftPrimaryHeader onPress={() => navigation.goBack()} />
+            ),
+            headerTitleAlign: "center",
+            headerTitle: (props) => (
+              <PrimaryBackHeader text="Política de privacidad" />
+            ),
+            headerStyle: {
+              backgroundColor: colors.PRIMARIO,
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+          })}
+        />
+        <Stack.Screen
+          name="Avisos"
+          component={AvisosScreen}
+          options={({ navigation, route }) => ({
+            headerLeft: (props) => (
+              <MenuLeftPrimaryHeader onPress={() => navigation.goBack()} />
+            ),
+            headerTitleAlign: "center",
+            headerTitle: (props) => <PrimaryBackHeader text="Avisos legales" />,
             headerStyle: {
               backgroundColor: colors.PRIMARIO,
               elevation: 0,

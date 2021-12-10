@@ -63,8 +63,8 @@ export const EditProfileScreen = ({ navigation }) => {
         <Center
           flex={1}
           style={{
-            marginLeft: spacing.spacingS,
-            marginRight: spacing.spacingS,
+            paddingLeft: 32,
+            paddingRight: 32,
           }}
         >
           <InputProfile

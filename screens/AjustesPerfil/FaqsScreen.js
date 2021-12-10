@@ -4,12 +4,12 @@ import {
   HStack,
   Text,
   Toast,
-  FlatList,
   Center,
   Spinner,
+  Box,
 } from "native-base";
 import React, { useState, useEffect } from "react";
-import { useWindowDimensions } from "react-native";
+import { FlatList, useWindowDimensions } from "react-native";
 import RenderHTML from "react-native-render-html";
 import { FaqItem } from "../../components/FaqItem";
 import menuService from "../../services/menu.service";
@@ -30,42 +30,46 @@ export const FaqsScreen = () => {
   }, []);
   return (
     <NativeBaseProvider>
-      <VStack flex={1} bg={colors.FONDO}>
-        <HStack justifyContent="center" style={{ padding: spacing.spacingXs }}>
+      <VStack
+        flex={1}
+        bg={colors.FONDO}
+        style={{
+          marginLeft: spacing.spacingXs,
+          marginRight: spacing.spacingXs,
+        }}
+      >
+        <HStack justifyContent="center" mb={spacing.spacingXxs}>
           <Text style={[textStyles.TXT_XS, { marginTop: spacing.spacingS }]}>
             Si tienes una duda, esperamos tener respuesta para ella...
           </Text>
         </HStack>
         {list.length > 0 ? (
           <FlatList
-            style={{
-              marginTop: spacing.spacingL,
-              marginLeft: spacing.spacingS,
-              marginRight: spacing.spacingS,
-            }}
             data={list}
             keyExtractor={(item) => item.tid}
             renderItem={({ item }) => (
-              <FaqItem title={item.nombre}>
-                <RenderHTML
-                  baseStyle={{
-                    padding: spacing.spacingXs,
-                    fontFamily: "Nunito_400Regular",
-                    fontSize: 14,
-                    fontWeight: "normal",
-                    fontStyle: "normal",
-                    letterSpacing: 0.16,
-                    color: colors.GRIS_OSCURO,
-                  }}
-                  source={{ html: item.descripcion }}
-                  contentWidth={width}
-                />
-              </FaqItem>
+              <Box style={{ marginTop: spacing.spacingXxs }}>
+                <FaqItem title={item.nombre}>
+                  <RenderHTML
+                    baseStyle={{
+                      padding: spacing.spacingXs,
+                      fontFamily: "Nunito_400Regular",
+                      fontSize: 14,
+                      fontWeight: "normal",
+                      fontStyle: "normal",
+                      letterSpacing: 0.16,
+                      color: colors.GRIS_OSCURO,
+                    }}
+                    source={{ html: item.descripcion }}
+                    contentWidth={width}
+                  />
+                </FaqItem>
+              </Box>
             )}
           />
         ) : (
           <Center>
-            <Spinner size="lg" />
+            <Spinner size="lg" color={colors.PRIMARIO} />
           </Center>
         )}
       </VStack>

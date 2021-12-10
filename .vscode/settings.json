@@ -1,7 +1,0 @@
-{
-  "js/ts.implicitProjectConfig.experimentalDecorators": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.tabSize": 2,
-  "editor.formatOnSave": true,
-  "editor.formatOnPaste": true
-}

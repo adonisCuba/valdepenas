@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "valdepenas",
+    "name": "Incidencias Valdepeñas",
     "slug": "valdepenas",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -8,23 +8,21 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#501731"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.adonis.cuba.valdepenas",
       "buildNumber": "1"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#501731"
       },
       "package": "com.adonis.cuba.valdepenas",
       "versionCode": 1

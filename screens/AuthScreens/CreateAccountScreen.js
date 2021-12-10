@@ -8,6 +8,8 @@ import {
   Pressable,
   Text,
   Toast,
+  ScrollView,
+  Link,
 } from "native-base";
 import React, { useContext, useState } from "react";
 import Constants from "expo-constants";
@@ -17,6 +19,7 @@ import { InputLogin } from "../../components/UI/InputLogin";
 import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProvider";
 import { spacing, textStyles } from "../../utils/styleGuide";
 import authService from "../../services/auth.service";
+import Logo from "../../assets/logo.svg";
 
 export const CreateAccountScreen = ({ navigation }) => {
   const { setUser } = useContext(AuthenticatedUserContext);
@@ -73,76 +76,86 @@ export const CreateAccountScreen = ({ navigation }) => {
         resizeMode="cover"
         style={{ flex: 1 }}
       >
-        <HStack style={{ marginTop: Constants.statusBarHeight }}>
-          <Pressable
-            style={{ margin: spacing.spacingXs }}
-            onPress={() => navigation.goBack()}
-          >
-            <Image
-              source={require("../../assets/icons/iconosVolverBlanco.png")}
-              alt="Icon back"
-            />
-          </Pressable>
-        </HStack>
-        <VStack flex={0.8} pl={spacing.spacingL} pr={spacing.spacingL}>
-          <HStack justifyContent="center">
-            <Image
-              source={require("../../assets/logo.png")}
-              w="228"
-              h="104"
-              resizeMode="cover"
-              alt="Logo del ayuntamiento"
+        <ScrollView flex={1}>
+          <HStack style={{ marginTop: Constants.statusBarHeight }}>
+            <Pressable
+              style={{ margin: spacing.spacingXs }}
+              onPress={() => navigation.goBack()}
+            >
+              <Image
+                source={require("../../assets/icons/iconosVolverBlanco.png")}
+                alt="Icon back"
+              />
+            </Pressable>
+          </HStack>
+          <VStack flex={1} pl={spacing.spacingL} pr={spacing.spacingL}>
+            <HStack
+              justifyContent="center"
               mt={spacing.spacingL}
               mb={spacing.spacingL}
-            />
-          </HStack>
-          <Center flex={1}>
-            <InputLogin
-              placeholder="Nombre"
-              value={nombre}
-              onChangeText={(text) => setNombre(text)}
-            />
-            <InputLogin
-              placeholder="Apellidos"
-              value={apellidos}
-              onChangeText={(text) => setApellidos(text)}
-            />
-            <InputLogin
-              placeholder="DNI"
-              value={dni}
-              onChangeText={(text) => setDni(text)}
-            />
-            <InputLogin
-              placeholder="Teléfono"
-              value={telefono}
-              onChangeText={(text) => setTelefono(text)}
-            />
-            <InputLogin
-              placeholder="Email"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
-            <InputLogin
-              placeholder="Contraseña"
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-            />
-            <Checkbox
-              style={styles.check}
-              value={politica}
-              onChange={(isSelected) => setPolitica(isSelected)}
             >
-              <Text style={styles.textCheck}>
-                Acepto política de privacidad
-              </Text>
-            </Checkbox>
-            <BtnLogin
-              onPress={register}
-              text="Crear cuenta"
-              showLoading={showLoading}
-            />
-          </Center>
-        </VStack>
+              <Logo />
+            </HStack>
+            <Center flex={1}>
+              <InputLogin
+                placeholder="Nombre"
+                value={nombre}
+                onChangeText={(text) => setNombre(text)}
+              />
+              <InputLogin
+                placeholder="Apellidos"
+                value={apellidos}
+                onChangeText={(text) => setApellidos(text)}
+              />
+              <InputLogin
+                placeholder="DNI"
+                value={dni}
+                onChangeText={(text) => setDni(text)}
+              />
+              <InputLogin
+                placeholder="Teléfono"
+                value={telefono}
+                onChangeText={(text) => setTelefono(text)}
+                keyboardType="numeric"
+              />
+              <InputLogin
+                placeholder="Email"
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                keyboardType="email-address"
+              />
+              <InputLogin
+                placeholder="Contraseña"
+                type="password"
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+              />
+              <Checkbox
+                style={styles.check}
+                value={politica}
+                onChange={(isSelected) => setPolitica(isSelected)}
+              >
+                <Text style={styles.textCheck}>Acepto </Text>
+                <Link
+                  style={styles.textCheck}
+                  _text={{
+                    color: "#FFFFFF",
+                  }}
+                  onPress={() => {
+                    navigation.navigate("Politica");
+                  }}
+                >
+                  política de privacidad
+                </Link>
+              </Checkbox>
+              <BtnLogin
+                onPress={register}
+                text="Crear cuenta"
+                showLoading={showLoading}
+              />
+            </Center>
+          </VStack>
+        </ScrollView>
       </ImageBackground>
     </NativeBaseProvider>
   );
@@ -150,8 +163,8 @@ export const CreateAccountScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   textCheck: {
     ...textStyles.TXT_XS,
-    color: "#FFFFFF",
     marginTop: 2,
+    color: "#FFFFFF",
   },
   check: {
     borderRadius: 2,

@@ -8,7 +8,6 @@ export class IncidenciaStore {
       getIncidencias: action,
       getIncidencia: action,
     });
-    this.incidencias = [];
   }
   getIncidencias = async () => {
     try {
