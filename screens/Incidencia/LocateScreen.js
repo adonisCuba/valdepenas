@@ -12,8 +12,10 @@ import Constants from "expo-constants";
 import { colors, spacing, textStyles } from "../../utils/styleGuide";
 import { useState } from "react";
 import { BtnWhite } from "../../components/UI/BtnWhite";
+import { useWindowDimensions } from "react-native";
 export const LocateScreen = ({ navigation }) => {
   const [markerPosition, setMarkerPosition] = useState(null);
+  const { height } = useWindowDimensions();
   return (
     <NativeBaseProvider>
       <Box style={{ backgroundColor: colors.PRIMARIO }}>
@@ -32,7 +34,7 @@ export const LocateScreen = ({ navigation }) => {
               Seleccione en el mapa la ubicación de la incidencia:
             </Text>
           </HStack>
-          <Box w="100%" h="86%">
+          <Box w="100%" h={height - 120}>
             <MapView
               style={{ width: "100%", height: "100%" }}
               initialRegion={{

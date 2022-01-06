@@ -19,8 +19,15 @@ import AvisosLegalesIcon from "../../assets/icons/iconosAvisosLegales.svg";
 import PoliticaIcon from "../../assets/icons/iconosPolTicaDePrivacidad.svg";
 import InfoTecnicaIcon from "../../assets/icons/iconosInfoTecnica.svg";
 import InfoProductoIcon from "../../assets/icons/iconosInfoDeProducto.svg";
+import { TokenService } from "../../services/token.service";
 export const ProfileSettingsScreen = ({ navigation }) => {
   const { setUser } = useContext(AuthenticatedUserContext);
+
+  const logout = async () => {
+    await TokenService.setUser(null);
+    setUser(null);
+  };
+
   return (
     <NativeBaseProvider>
       <ImageBackground
@@ -50,7 +57,7 @@ export const ProfileSettingsScreen = ({ navigation }) => {
             style={{
               padding: spacing.spacingS,
               marginTop: spacing.spacingXl,
-              marginBottom: spacing.spacingXxs,
+              marginBottom: spacing.spacingXl,
             }}
           >
             <HStack>
@@ -60,7 +67,7 @@ export const ProfileSettingsScreen = ({ navigation }) => {
               <Text style={textStyles.TXT_M}>Feedback</Text>
             </HStack>
           </Pressable>
-          <Pressable
+          {/* <Pressable
             onPress={() => navigation.navigate("Faqs")}
             bg="white"
             style={{
@@ -74,7 +81,7 @@ export const ProfileSettingsScreen = ({ navigation }) => {
               </Box>
               <Text style={textStyles.TXT_M}>Preguntas frecuentes</Text>
             </HStack>
-          </Pressable>
+          </Pressable> */}
           <Pressable
             bg="white"
             style={{
@@ -111,6 +118,7 @@ export const ProfileSettingsScreen = ({ navigation }) => {
               padding: spacing.spacingS,
               marginBottom: spacing.spacingXl,
             }}
+            onPress={() => navigation.navigate("InfoTecnica")}
           >
             <HStack>
               <Box mr={spacing.spacingXxs}>
@@ -119,26 +127,21 @@ export const ProfileSettingsScreen = ({ navigation }) => {
               <Text style={textStyles.TXT_M}>Información técnica</Text>
             </HStack>
           </Pressable>
-          <Pressable bg="white" p={spacing.spacingXxs} mb={spacing.spacingXxs}>
+          {/* <Pressable bg="white" p={spacing.spacingXxs} mb={spacing.spacingXxs}>
             <HStack>
               <Box mr={spacing.spacingXxs}>
                 <InfoProductoIcon />
               </Box>
               <Text style={textStyles.TXT_M}>Info de producto</Text>
             </HStack>
-          </Pressable>
+          </Pressable> */}
         </VStack>
         <HStack
           bg={colors.PRIMARIO}
           justifyContent="center"
           style={{ paddingBottom: spacing.spacingL }}
         >
-          <Pressable
-            style={styles.btn}
-            onPress={() => {
-              setUser(null);
-            }}
-          >
+          <Pressable style={styles.btn} onPress={logout}>
             <Text style={styles.txt}>Cerrar sesión</Text>
           </Pressable>
         </HStack>

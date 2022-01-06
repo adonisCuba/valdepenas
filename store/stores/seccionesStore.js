@@ -15,6 +15,7 @@ export class SeccionesStore {
   async getSecciones() {
     try {
       const result = await seccionService.getSecciones();
+      console.log("Secciones", result);
       runInAction(() => {
         this.secciones = result;
       });

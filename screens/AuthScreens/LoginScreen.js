@@ -36,6 +36,7 @@ export const LoginScreen = ({ navigation }) => {
           await TokenService.setAccessToken(result.access_token);
           await TokenService.setCsrfToken(result.csrf_token);
           await TokenService.setLogoutToken(result.logout_token);
+          await TokenService.setUser(result.current_user);
           setUser(result.current_user);
         }
       } else

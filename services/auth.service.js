@@ -19,6 +19,7 @@ class AuthService {
       }
     });
   }
+
   async recoveryPassword(email) {
     const headers = new Headers();
     headers.append("Content-Type", "application/json");
@@ -72,6 +73,4 @@ class AuthService {
       .catch((error) => console.log("error", error));
   }
 }
-import incidenciaService from "./incidencia.service";
-
 export default new AuthService();

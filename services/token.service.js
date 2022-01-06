@@ -34,7 +34,9 @@ export const TokenService = {
     await SecureStore.setItemAsync("logoutToken", logoutToken);
   },
   getUser: async () => {
-    return await SecureStore.getItemAsync("user");
+    const user = await SecureStore.getItemAsync("user");
+    if (user) return JSON.parse(user);
+    else return null;
   },
   setUser: async (user) => {
     await SecureStore.setItemAsync("user", JSON.stringify(user));

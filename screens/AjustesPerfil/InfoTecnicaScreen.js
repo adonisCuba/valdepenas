@@ -5,12 +5,12 @@ import { useState } from "react";
 import { useWindowDimensions } from "react-native";
 import RenderHTML from "react-native-render-html";
 import { spacing } from "../../utils/styleGuide";
-const PoliticaScreen = ({ rootStore, navigation }) => {
+const InfoTecnicaScreen = ({ rootStore, navigation }) => {
   const [politica, setPolitica] = useState("");
   const { width } = useWindowDimensions();
   const { secciones, getSeccion } = rootStore.seccionesStore;
   useEffect(() => {
-    const seccion = getSeccion("Politicas");
+    const seccion = getSeccion("InformacionTecnica");
     setPolitica(seccion.contenido);
   }, [secciones]);
   return (
@@ -22,4 +22,4 @@ const PoliticaScreen = ({ rootStore, navigation }) => {
   );
 };
 
-export default inject("rootStore")(observer(PoliticaScreen));
+export default inject("rootStore")(observer(InfoTecnicaScreen));

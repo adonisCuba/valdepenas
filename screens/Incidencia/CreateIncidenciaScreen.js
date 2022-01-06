@@ -60,18 +60,6 @@ const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
     }
   }, [route.params?.geo]);
 
-  const pickImage = async () => {
-    setIsOpen(!isOpen);
-    // let result = await ImagePicker.launchImageLibraryAsync({
-    //   mediaTypes: ImagePicker.MediaTypeOptions.Images,
-    //   allowsEditing: true,
-    //   aspect: [16, 9],
-    //   quality: 0.5,
-    // });
-    // if (!result.cancelled) {
-    //   setImagenUri(result.uri);
-    // }
-  };
   const onGaleria = async () => {
     setIsOpen(false);
     if (Platform.OS !== "web") {
@@ -222,9 +210,18 @@ const CreateIncidenciaScreen = ({ navigation, route, rootStore }) => {
               InputRightElement={
                 <Pressable onPress={() => navigation.navigate("Locate")}>
                   {loading ? (
-                    <Spinner size="sm" color={colors.PRIMARIO} />
+                    <Spinner
+                      size="sm"
+                      color={colors.PRIMARIO}
+                      style={{ marginRight: spacing.spacingXxs }}
+                    />
                   ) : (
-                    <Box style={{ marginRight: spacing.spacingXxs }}>
+                    <Box
+                      style={{
+                        marginRight: spacing.spacingXs,
+                        marginLeft: spacing.spacingXxs,
+                      }}
+                    >
                       <UbicacionIcon />
                     </Box>
                   )}

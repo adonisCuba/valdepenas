@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Incidencias Valdepeñas",
+    "name": "Valdepeñas Limpieza Viaria",
     "slug": "valdepenas",
-    "version": "1.0.0",
+    "version": "4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +17,14 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.adonis.cuba.valdepenas",
-      "buildNumber": "1"
+      "buildNumber": "4",
+      "infoPlist": {
+        "CFBundleLocalizations": ["es"],
+        "CFBundleDevelopmentRegion": "es",
+        "NSPhotoLibraryUsageDescription": "La aplicación requiere acceso a sus fotos para permitirle compartir la imagen de la incidencia.",
+        "NSLocationWhenInUseUsageDescription": "La aplicación requiere su posición para ubicar la incidencia.",
+        "NSCameraUsageDescription": "La aplicación requiere acceso a la cámara para permitirle tomar la imagen de la incidencia."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,7 +32,12 @@
         "backgroundColor": "#501731"
       },
       "package": "com.adonis.cuba.valdepenas",
-      "versionCode": 1
+      "versionCode": 4,
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBqM6aUEkSpY5MaEl_yd4o4YHAdOdn9dDU"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -34,12 +46,13 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "La aplaicación requiere acceso a sus fotos para permitirle compartir la imagen de la incidencia."
+          "photosPermission": "La aplaicación requiere acceso a sus fotos para permitirle compartir la imagen de la incidencia.",
+          "cameraPermission": "La aplaicación requiere acceso a la cámara para permitirle tomar la imagen de la incidencia."
         }
       ]
     ],
     "extra": {
-      "API_URL": "https://ferrovial.creacionwebprofesional.com"
+      "API_URL": "https://valdepenas.gestiondeincidencias.es"
     },
     "description": "",
     "githubUrl": "https://github.com/Soporte-Tecnico-Tic/valdepenas"

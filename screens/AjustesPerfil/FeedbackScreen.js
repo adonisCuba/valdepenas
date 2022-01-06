@@ -6,6 +6,7 @@ import {
   Text,
   TextArea,
   Toast,
+  ScrollView,
 } from "native-base";
 import React from "react";
 import { useState } from "react";
@@ -51,34 +52,38 @@ export const FeedBackScreen = () => {
             Puedes editar los datos de tu usuario
           </Text>
         </HStack>
-        <Center
-          flex={1}
-          style={{
-            marginLeft: 32,
-            marginRight: 32,
-          }}
+        <ScrollView
+          contentContainerStyle={{ flexGrow: 1, justifyContent: "center" }}
         >
-          <InputProfile
-            placeholder="Asunto"
-            value={subject}
-            onChangeText={(text) => {
-              setSubject(text);
+          <Center
+            flex={1}
+            style={{
+              marginLeft: 32,
+              marginRight: 32,
             }}
-          />
-          <TextArea
-            placeholder="Descripción"
-            placeholderTextColor={colors.PRIMARIO}
-            style={[
-              textStyles.TXT_XS,
-              { textAlign: "center" },
-              styles.textArea,
-            ]}
-            value={message}
-            onChangeText={(text) => {
-              setMessage(text);
-            }}
-          />
-        </Center>
+          >
+            <InputProfile
+              placeholder="Asunto"
+              value={subject}
+              onChangeText={(text) => {
+                setSubject(text);
+              }}
+            />
+            <TextArea
+              placeholder="Descripción"
+              placeholderTextColor={colors.PRIMARIO}
+              style={[
+                textStyles.TXT_XS,
+                { textAlign: "center" },
+                styles.textArea,
+              ]}
+              value={message}
+              onChangeText={(text) => {
+                setMessage(text);
+              }}
+            />
+          </Center>
+        </ScrollView>
         <HStack justifyContent="center">
           <BtnMarron text="Enviar" onPress={send} />
         </HStack>

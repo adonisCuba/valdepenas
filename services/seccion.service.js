@@ -7,9 +7,7 @@ class SeccionService {
   }
 
   async getSecciones() {
-    const accessToken = await TokenService.getAccessToken();
     const headers = new Headers();
-    headers.append("Authorization", `Bearer ${accessToken}`);
 
     const requestOptions = {
       method: "GET",

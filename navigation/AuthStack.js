@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { LoginScreen } from "../screens/AuthScreens/LoginScreen";
 import { RecoveryPasswordScreen } from "../screens/AuthScreens/RecoveryPasswordScreen";
@@ -6,11 +6,16 @@ import { CreateAccountScreen } from "../screens/AuthScreens/CreateAccountScreen"
 import { MenuLeftPrimaryHeader } from "../components/Header/MenuLeftPrimaryHeader";
 import { PrimaryBackHeader } from "../components/Header/PrimaryBackHeader";
 import { colors } from "../utils/styleGuide";
-import { PoliticaScreen } from "../screens/AjustesPerfil/PoliticaScreen";
+import PoliticaScreen from "../screens/AjustesPerfil/PoliticaScreen";
+import { inject, observer } from "mobx-react";
 
 const Stack = createStackNavigator();
 
-export default function AuthStack() {
+const AuthStack = (props) => {
+  const { getSecciones } = props.rootStore.seccionesStore;
+  useEffect(() => {
+    getSecciones();
+  }, []);
   return (
     <Stack.Navigator>
       <Stack.Group screenOptions={{ headerShown: false }}>
@@ -43,4 +48,5 @@ export default function AuthStack() {
       </Stack.Group>
     </Stack.Navigator>
   );
-}
+};
+export default inject("rootStore")(observer(AuthStack));

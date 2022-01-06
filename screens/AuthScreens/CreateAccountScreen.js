@@ -20,6 +20,7 @@ import { AuthenticatedUserContext } from "../../navigation/AuthenticatedUserProv
 import { spacing, textStyles } from "../../utils/styleGuide";
 import authService from "../../services/auth.service";
 import Logo from "../../assets/logo.svg";
+import { PhoneNumberUtil } from "google-libphonenumber";
 
 export const CreateAccountScreen = ({ navigation }) => {
   const { setUser } = useContext(AuthenticatedUserContext);
@@ -31,15 +32,56 @@ export const CreateAccountScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [politica, setPolitica] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+
+  const validarDni = (dni) => {
+    var numero;
+    var letr;
+    var letra;
+    var expresion_regular_dni;
+
+    expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
+
+    if (expresion_regular_dni.test(dni) == true) {
+      numero = dni.substr(0, dni.length - 1);
+      letr = dni.substr(dni.length - 1, 1);
+      numero = numero % 23;
+      letra = "TRWAGMYFPDXBNJZSQVHLCKET";
+      letra = letra.substring(numero, numero + 1);
+      if (letra != letr.toUpperCase()) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  };
+
+  const validarTelefono = (telefono) => {
+    const phoneUtil = PhoneNumberUtil.getInstance();
+    return phoneUtil.isValidNumberForRegion(
+      phoneUtil.parse(telefono, "ES"),
+      "ES"
+    );
+  };
+
+  const validarEmail = (email) => {
+    return /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+      email
+    );
+  };
   const register = async () => {
     if (
       politica != false &&
       nombre.trim() != "" &&
       apellidos.trim() != "" &&
       telefono.trim() != "" &&
+      validarTelefono(telefono.trim()) &&
       email.trim() != "" &&
+      validarEmail(email.trim()) &&
       password != "" &&
-      dni.trim() != ""
+      dni.trim() != "" &&
+      validarDni(dni.trim())
     ) {
       setShowLoading(true);
       const result = await authService.register(
@@ -66,7 +108,7 @@ export const CreateAccountScreen = ({ navigation }) => {
         title: "Error",
         status: "error",
         description:
-          "Debe llenar todos los campos y aceptar la política de privacidad.",
+          "Debe llenar todos los campos correctamente y aceptar la política de privacidad.",
       });
   };
   return (

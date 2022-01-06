@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import ListIncidenciaScreen from "../screens/Incidencia/ListIncidenciaScreen";
 import CreateIncidenciaScreen from "../screens/Incidencia/CreateIncidenciaScreen";
 import { SuccessCreateScreen } from "../screens/Incidencia/SuccessCreateScreen";
 import DetailsIncidenciaScreen from "../screens/Incidencia/DetailsIncidenciaScreen";
 import { ProfileSettingsScreen } from "../screens/AjustesPerfil/ProfileSettingsScreen";
-import { EditProfileScreen } from "../screens/AjustesPerfil/EditProfileScreen";
+import EditProfileScreen from "../screens/AjustesPerfil/EditProfileScreen";
 import { FeedBackScreen } from "../screens/AjustesPerfil/FeedbackScreen";
 import { FaqsScreen } from "../screens/AjustesPerfil/FaqsScreen";
 import { IncidenciasHeader } from "../components/Header/IncidenciasHeader";
@@ -16,12 +16,20 @@ import { MenuLeftPrimaryHeader } from "../components/Header/MenuLeftPrimaryHeade
 import { PrimaryBackHeader } from "../components/Header/PrimaryBackHeader";
 import { colors } from "../utils/styleGuide";
 import { LocateScreen } from "../screens/Incidencia/LocateScreen";
-import { PoliticaScreen } from "../screens/AjustesPerfil/PoliticaScreen";
-import { AvisosScreen } from "../screens/AjustesPerfil/AvisosScreen";
+import AvisosScreen from "../screens/AjustesPerfil/AvisosScreen";
+import InfoTecnicaScreen from "../screens/AjustesPerfil/InfoTecnicaScreen";
+import { inject, observer } from "mobx-react";
+import PoliticaScreen from "../screens/AjustesPerfil/PoliticaScreen";
 
 const Stack = createStackNavigator();
 
-export default function IncidenciaStack() {
+const IncidenciaStack = (props) => {
+  const { getProfile } = props.rootStore.profileStore;
+  const { getSecciones } = props.rootStore.seccionesStore;
+  useEffect(() => {
+    getProfile();
+    getSecciones();
+  }, []);
   return (
     <Stack.Navigator>
       <Stack.Group
@@ -170,6 +178,24 @@ export default function IncidenciaStack() {
             },
           })}
         />
+        <Stack.Screen
+          name="InfoTecnica"
+          component={InfoTecnicaScreen}
+          options={({ navigation, route }) => ({
+            headerLeft: (props) => (
+              <MenuLeftPrimaryHeader onPress={() => navigation.goBack()} />
+            ),
+            headerTitleAlign: "center",
+            headerTitle: (props) => (
+              <PrimaryBackHeader text="Información técnica" />
+            ),
+            headerStyle: {
+              backgroundColor: colors.PRIMARIO,
+              elevation: 0,
+              shadowOpacity: 0,
+            },
+          })}
+        />
       </Stack.Group>
       <Stack.Group screenOptions={{ headerShown: false }}>
         <Stack.Screen
@@ -179,4 +205,6 @@ export default function IncidenciaStack() {
       </Stack.Group>
     </Stack.Navigator>
   );
-}
+};
+
+export default inject("rootStore")(observer(IncidenciaStack));
